@@ -388,10 +388,13 @@ procedure pull;
 procedure init_0;
  var l:longint;
  begin
+{
   table(14, 1); table(26, 1); table(38, 1); sh_ct1:=14;
   table(14,12); table(26,12); table(38,12); sh_ct2:=14;
+}
   m:=0; t_record:=0; s_record:=0;
   gotoxy(1,1);
+{
   writeln('M=000000000');
   writeln('nrm='); writeln('mov=');
   writeln('tov='); writeln('b_t=');
@@ -400,14 +403,48 @@ procedure init_0;
   writeln('lNc='); 
   writeln('gMl=');
   writeln('p_l='); writeln('pSl='); 
+}
   { writeln('brl='); writeln('bil='); }
+{
   writeln('eH0='); writeln('eH1='); 
   writeln('e0l='); writeln('e1l='); 
   writeln('eS0='); writeln('eS1='); 
   writeln('eS2='); 
   writeln('B-L='); 
   writeln('cl0='); 
+}
   for l:=1 to e_max do e_cnt[l]:=0;
+ end;
+
+procedure SetTMStdin();
+ var i,j:byte;
+  sz:word;
+  s:string;
+ procedure SetStd0(i,j:byte);
+  begin
+   if s[j+2]='-' 
+    then A[i]:=0
+    else A[i]:=ord(s[j+2])-ord('@');
+   if s[j+1]='L' 
+    then B[i]:=0 else B[i]:=1;
+   if s[j]='0'
+    then C[i]:=0 else C[i]:=1; 
+  end;
+ begin
+  sz := 7*dm-1;
+  while true do begin
+    if (EOF(Input)) then Halt();
+    ReadLn(Input, s);
+    if Length(s) = 0 then continue
+    else if Length(s) = sz then break
+    else WriteLn('invalid input length, skipping line');
+  end;
+  WriteLn('Read machine from stdin: ', s);
+  for i:=1 to dm do begin
+   j:=(i-1)*7;
+   SetStd0(i,j+1);
+   SetStd0(dm+i,j+4);
+  end;
  end;
 
 procedure SetTM(s:string);
@@ -461,7 +498,7 @@ procedure init_t(a1:byte);
    end;
    for l:=1 to dm do C[dm+l]:=1;
   end;
-
+  SetTMStdin();
   { SpecalSubClasses rev0/rev1 }
   
   { C[1]:=1; C[2]:=1; C[3]:=1; C[4]:=1;  C[5]:=1; }  
@@ -784,9 +821,11 @@ procedure init_t(a1:byte);
 }
 
   s_ct:=0; push('\');
+{
   table (x0,12);  wr_mash(x0,12);
   gotoxy(x1,19); write('c=',cmax:6);
   gotoxy(x1,20); write('m=',mmax:6);
+}
  end;
 
 function HTSize(s:string):longint;
@@ -4713,7 +4752,7 @@ procedure CreateHuffCodes(
    if s0[1]='-' then s0[1]:='+' else s0[1]:='-';
    with HuffCodes[Gen_cnt] do for j:=0 to n do begin
     s1:=EA[j];
-    if length(s1)>length(s0) then delete(s1,1,length(s1)-length(s0)); 
+    if length(s1)>length(s0) then delete(s1,1,length(s1)-length(s0));
     if s1=s0 then Test_acc:=true;
    end; 
   end;
@@ -6035,7 +6074,8 @@ begin  { root }
  assign(tnr,   'noreg_' +RevS+'.txt'); rewrite(tnr); 
  assign(tnr1,  'nreg_'  +RevS+'.txt'); rewrite(tnr1); 
  assign(trc,   'recrd_' +RevS+'.txt'); rewrite(trc); 
- assign(tproof,'proved_'+RevS+'.txt'); rewrite(tproof); 
+ //assign(tproof,'proved_'+RevS+'.txt'); rewrite(tproof);
+ tproof := Output;
  assign(tsrec, 'ShRec_' +RevS+'.txt'); rewrite(tsrec); 
  assign(ttm,   'others.txt'); rewrite(ttm); 
  clrscr;  old_sec:=get_sec;

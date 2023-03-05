@@ -1,0 +1,113 @@
+
+58198915
+1RB0LE_1RC0LA_1RD1RA_1RE---_1LB1LB
+
+INIT(0): <A []
+
+RIGHT:
+<A [ZZZZ] => >E [1111] # (A0 B0 C0 D0) E
+<A [Z01]  => >A [111]  # (A0 B0 C1) A
+<A [001]  => >A [111]  # (A0 B0 C1) A
+
+<A [0001] => HALT # unreachable
+End tape content: >E [1]*(5+6*N)
+
+LEFT:
+>E [11Z] => <E [001] # (EL BL AL) E 
+>E [111] => <E [001] # (EL BL AL) E
+>E [Z11] => <A [01]  # (EL BL) A
+End tape content: <A [01][001]*(1+2*N)
+
+7138842
+INIT(0): <A 0[000]
+
+RIGHT:
+<A  [001] => >A [100] # (A0 B0 C1 B0 C0 A1 D0 C1 B1) A
+>A 0[000] => <D [000] # (A0 B0 C0 A1 D1 E0 A1) D
+>A 1[000] => HALT # unreachable
+End state: [100]*N[10](D0)[000]
+
+LEFT:
+>D [ZZ0] => <A[01]  # (D0 C0)
+>D [100] => <D[001] # (D0 C0 A1)
+End state: <A [001]*(N)
+
+68340492
+INIT(1): >B [01Z]
+
+LEFT:
+>B [01Z] => <C [111]
+>C [11]  => <C [11]
+>C [01]  => <C [11]
+>C [Z]   => <D [1]
+End state: <D [1][11]*2N
+
+RIGHT:
+<D [Z1] => >D [11]
+<D [11] => >D [01]
+<D [1Z] => >B [01]
+<D [10] => HALT # unreachable
+End state: >B [11][01]*2N
+
+5284237 bouncer fill
+12786464 bouncer fill
+2778244 bouncer
+9876741 bouncer
+5730228 bouncer
+53960319 bouncer
+86762012 bouncer
+12033316 bouncer
+6039442 bouncer
+9302778 counter
+5569502 bouncer
+945325 bouncer
+14167757 bouncer
+7196821 bouncer
+4500238 bouncer
+9865462 bouncer fill
+5802973 bouncer fill
+9480916 bouncer shift fill
+9637304 bouncer
+12785371 bouncer
+10171399 bouncer fill
+13788688 counter (checks odd positions, but they are always cleared)
+modified 3-state machine 1RB1LC_0LA0RB_1LA---
+8391029 bouncer
+14540241 bouncer
+5116125 bouncer
+87369862 bouncer
+874134 bouncer
+13671390 bouncer
+606694 bouncer
+11248556 bouncer
+3369051 bouncer
+13016865 bouncer
+7880863 bouncer
+54567705 shift bouncer
+946697 bouncer
+8750875 bouncer
+1850083 bouncer
+7609590 bouncer
+9331881 shift bouncer
+56565087 bouncer
+36092334 bouncer
+6301154 fill bouncer
+14481441 bouncer
+10096312 fill bouncer
+10096312 bouncer easy
+85049055 bouncer easy
+5378336 bouncer
+8540457 bouncer
+59939597 bouncer
+12981999 bouncer
+11045795 counter
+13490300 bouncer
+3801008 bouncer
+3873464 bouncer
+10855683 bouncer
+63480825 b
+75170130
+51924636 
+9917488
+9997535
+80788312
